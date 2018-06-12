@@ -9,10 +9,10 @@
 // some libraries and sketches depend on this
 // AVR stuff, assuming Arduino.h or WProgram.h
 // automatically includes it...
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
+//#include <avr/pgmspace.h>
+//#include <avr/interrupt.h>
 
-#include "avr_functions.h"
+//#include "avr_functions.h"
 #include "wiring.h"
 #include "HardwareSerial.h"
 
