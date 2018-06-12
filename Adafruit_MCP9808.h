@@ -27,7 +27,7 @@
 #include <Wire.h>
 
 
-#define MCP9808_I2CADDR_DEFAULT        0x18
+#define MCP9808_I2CADDR_DEFAULT        0x1B
 #define MCP9808_REG_CONFIG             0x01
 
 #define MCP9808_REG_CONFIG_SHUTDOWN    0x0100
