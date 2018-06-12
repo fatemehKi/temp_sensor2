@@ -13,7 +13,7 @@
 //#include <avr/interrupt.h>
 
 //#include "avr_functions.h"
-#include "wiring.h"
+//#include "wiring.h"
 #include "HardwareSerial.h"
 
 #define DMAMEM __attribute__ ((section(".dmabuffers"), used))
