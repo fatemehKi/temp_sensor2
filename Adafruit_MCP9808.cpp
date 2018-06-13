@@ -15,6 +15,8 @@
     v1.0 - First release
 */
 /**************************************************************************/
+
+/*
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -27,7 +29,7 @@
 #else
  #include <Wire.h>
 #endif
-
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
