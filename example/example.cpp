@@ -42,7 +42,7 @@ int getkey() {
 }
 
 int main() {
-   AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808() ;
+   AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808();
    
   int err =  AdafruitMCP9808->openAdafruitMCP9808();
     if (err < 0){
@@ -71,4 +71,5 @@ int main() {
   
   delay(1000);
         return 0;
+        AdafruitMCP9808->closeAdafruitMCP9808();
 }
