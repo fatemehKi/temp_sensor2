@@ -16,13 +16,14 @@
 */
 /**************************************************************************/
 
-/*
+
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
  #include "WProgram.h"
 #endif
 
+/*
 #ifdef __AVR_ATtiny85__
  #include "TinyWireM.h"
  #define Wire TinyWireM
