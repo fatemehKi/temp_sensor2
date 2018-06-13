@@ -18,6 +18,15 @@
 #ifndef _ADAFRUIT_MCP9808_H
 #define _ADAFRUIT_MCP9808_H
 
+#include <cstddef>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <cstdlib>
+#include <cstdio>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+
 /*
 #if ARDUINO >= 100
  #include "Arduino.h"
@@ -25,45 +34,49 @@
  #include "WProgram.h"
 #endif
 */
-#include <Wire.h>
+//#include <Wire.h>
 
 
-#define MCP9808_I2CADDR_DEFAULT        0x1B
-#define MCP9808_REG_CONFIG             0x01
+#define kAdafruit_MCP980I2CAddress              0x1B
 
-#define MCP9808_REG_CONFIG_SHUTDOWN    0x0100
-#define MCP9808_REG_CONFIG_CRITLOCKED  0x0080
-#define MCP9808_REG_CONFIG_WINLOCKED   0x0040
-#define MCP9808_REG_CONFIG_INTCLR      0x0020
-#define MCP9808_REG_CONFIG_ALERTSTAT   0x0010
-#define MCP9808_REG_CONFIG_ALERTCTRL   0x0008
-#define MCP9808_REG_CONFIG_ALERTSEL    0x0004
-#define MCP9808_REG_CONFIG_ALERTPOL    0x0002
-#define MCP9808_REG_CONFIG_ALERTMODE   0x0001
+// Internal Control Registers 
+#define kAdafruit_MCP980CommandControlRegister    0x00    // Command Control Register
+//#define kLidarLiteVelocityMeasurementOutput     0x09    // Velocity [Read Only]: in .1 meters/sec (8 bit signed value)
+// High byte set means read two bytes
+#define kAdafruit_MCP9808CalculateTemperatureMSB  0x8f    // Calculated distance in cm (difference between signal and reference delay)
+                                                        // High byte of calculated delay of signal [Read Only]: reference – calculated after correlation record processing
+                                                        // If the returned MSB is 1 then the reading is not considered valid.
 
-#define MCP9808_REG_UPPER_TEMP         0x02
-#define MCP9808_REG_LOWER_TEMP         0x03
-#define MCP9808_REG_CRIT_TEMP          0x04
-#define MCP9808_REG_AMBIENT_TEMP       0x05
-#define MCP9808_REG_MANUF_ID           0x06
-#define MCP9808_REG_DEVICE_ID          0x07
+#define kAdafruit_MCP9808CalculateTemperatureLSB 0x10    // Low byte of calculated delay of signal [Read Only]: reference – calculated after correlation record processing
+//#define kLidarLitePreviousMeasuredDistanceMSB   0x94    // Previous high byte of calculated delay of signal
+//#define kLidarLitePreviousMeasuredDistanceLSB   0x15    // Previous low byte of calculated delay of signal
 
-class Adafruit_MCP9808 {
- public:
-  Adafruit_MCP9808();
-  bool begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);  
-  float readTempF( void );
-  float readTempC( void );
-  void shutdown_wake( uint8_t sw_ID );
-  void shutdown(void);
-  void wake(void);
+// External Control Registers
+//#define kLidarLiteHardwareVersion               0x41    // Hardware Version: revisions begin with 0x01
+//#define kLidarLiteSoftwareVersion               0x4f    // Software Version: Revisions begin with 0x01
 
-  void write16(uint8_t reg, uint16_t val);
-  uint16_t read16(uint8_t reg);
+// Register Command
+#define Adafruit_MCP9808Measure                       0x04    // Take acquisition & correlation processing with DC correction
 
- private:
+class LidarLite
+{
+public:
+    unsigned char kI2CBus ;         // I2C bus of the Lidar-Lite
+    int kI2CFileDescriptor ;        // File Descriptor to the Lidar-Lite
+    int error ;
+    Adafruit_MCP9808();
+    ~Adafruit_MCP9808() ;
+    bool openAdafruit_MCP9808() ;                   // Open the I2C bus to the Lidar-Lite
+    void closAdafruit_MCP9808();                   // Close the I2C bus to the Lidar-Lite
+    int writeAdafruit_MCP9808(int writeRegister,int writeValue) ;
+    int readAdafruit_MCP9808(int readRegister) ;
+    int getTemperature() ;
+    //int getPreviousDistance() ;
+    //int getVelocity() ;
+    //int getHardwareVersion() ;
+    //int getSoftwareVersion() ;
+    //int getError() ;
 
-  uint8_t _i2caddr;
 };
 
-#endif
+#endif // LIDARLITE_H
