@@ -54,15 +54,19 @@ int main() {
         printf("Hardware Version: %d\n",hardwareVersion) ;
         printf("Software Version: %d\n",softwareVersion) ;
 
-
-
+    while(lidarLite->error >= 0 && getkey() != 27){
+         float c = AdafruitMCP9808 -> getTemperature();
+         float f = c * 9.0 / 5.0 + 32;
+         printf("Temp: %f\n",c) ;
+    }
+    }
+    
  // tempsensor->wake();   // wake up, ready to read!
 
   // Read and print out the temperature, then convert to *F
-  float c = AdafruitMCP9808 -> getTemperature();
-  float f = c * 9.0 / 5.0 + 32;
   
-  printf("Temp: %f\n",c) ;
+  
+ 
  // printf("Temp: "); Serial.print(c); Serial.print("*C\t"); 
   //Serial.print(f); Serial.println("*F");
   
