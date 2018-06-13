@@ -159,7 +159,7 @@ int AdafruitMCP9808::getTemperature()
 }
 
 
-/*
+
 void Adafruit_MCP9808::shutdown(void)
 {
   shutdown_wake(1);
