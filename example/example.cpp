@@ -69,7 +69,8 @@ int main() {
   //Serial.println("Shutdown MCP9808.... ");
   //tempsensor.shutdown(); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere
   
-  delay(1000);
-        return 0;
+  //delay(1000);
+       
         AdafruitMCP9808->closeAdafruitMCP9808();
+        return 0;
 }
