@@ -76,8 +76,8 @@ public:
     int getHardwareVersion() ;
     int getSoftwareVersion() ;
     int getError() ;
-    void AdafruitMCP9808::shutdown(void);
-    void AdafruitMCP9808::wake(void);
+  //  void AdafruitMCP9808::shutdown(void);
+   // void AdafruitMCP9808::wake(void);
 
 };
 
