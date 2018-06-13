@@ -79,4 +79,4 @@ public:
 
 };
 
-#endif // LIDARLITE_H
+#endif // Adafruit_MCP9808
