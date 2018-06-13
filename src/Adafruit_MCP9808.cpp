@@ -52,7 +52,7 @@ Adafruit_MCP9808::Adafruit_MCP9808() {
     @brief  Setups the HW
 */
 /**************************************************************************/
-boolean Adafruit_MCP9808::begin(uint8_t addr) {
+bool Adafruit_MCP9808::begin(uint8_t addr) {
   _i2caddr = addr;
   Wire.begin();
 
