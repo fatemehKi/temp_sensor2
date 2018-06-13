@@ -1,2 +1,2 @@
 all:
-				g++ example.cpp ../Adafruit_MCP9808.cpp -I../temp_sensor2 -o example
+				g++ example.cpp ../src/Adafruit_MCP9808.cpp -I../src -o example
