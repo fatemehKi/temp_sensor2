@@ -159,20 +159,36 @@ int AdafruitMCP9808::getTemperature()
 }
 
 
+int AdafruitMCP9808::getHardwareVersion()
+{
+    return readLidarLite(kLidarLiteHardwareVersion) ;
+}
 
-void Adafruit_MCP9808::shutdown(void)
+// Return the Lidar-Lite software version
+int AdafruitMCP9808::getSoftwareVersion() {
+    return readLidarLite(kLidarLiteSoftwareVersion) ;
+}
+
+
+// Return the last i/o error
+int AdafruitMCP9808::getError()
+{
+    return error ;
+}
+
+void AdafruitMCP9808::shutdown(void)
 {
   shutdown_wake(1);
 }
 
-void Adafruit_MCP9808::wake(void)
+void AdafruitMCP9808::wake(void)
 {
   shutdown_wake(0);
   delay(250);
 }
 
 
-*/
+
 /**************************************************************************/
 /*! 
     @brief  Low level 16 bit read and write procedures!
