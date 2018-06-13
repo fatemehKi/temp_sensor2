@@ -16,7 +16,7 @@
 */
 /**************************************************************************/
 
-
+/*
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -31,7 +31,7 @@
  #include <Wire.h>
 #endif
 */
-
+/*
 
 #include <Wire.h>
 #include <stdio.h>
@@ -39,7 +39,8 @@
 #include <string.h>
 #include <termios.h>
 #include <time.h>
-
+*/
+	
 #include "Adafruit_MCP9808.h"
 
 /**************************************************************************/
@@ -47,7 +48,16 @@
     @brief  Instantiates a new MCP9808 class
 */
 /**************************************************************************/
-Adafruit_MCP9808::Adafruit_MCP9808() {
+Adafruit_MCP9808::Adafruit_MCP9808() 
+{
+	kI2CBus = 1 ;           // Default I2C bus for Lidar-Lite on Jetson TK1
+	error = 0 ;
+}
+
+
+Adafruit_MCP9808::~Adafruit_MCP9808() 
+{
+	closeAdafruit_MCP9808();
 }
 
 /**************************************************************************/
@@ -55,33 +65,50 @@ Adafruit_MCP9808::Adafruit_MCP9808() {
     @brief  Setups the HW
 */
 /**************************************************************************/
-bool Adafruit_MCP9808::begin(uint8_t addr) {
-  _i2caddr = addr;
-  Wire.begin();
-
-  if (read16(MCP9808_REG_MANUF_ID) != 0x0054) return false;
-  if (read16(MCP9808_REG_DEVICE_ID) != 0x0400) return false;
-
-
-  write16(MCP9808_REG_CONFIG, 0x0);
-  return true;
+bool Adafruit_MCP9808::openAdafruit_MCP9808() {
+      char fileNameBuffer[32];
+    sprintf(fileNameBuffer,"/dev/i2c-%d", kI2CBus);
+    kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
+    if (kI2CFileDescriptor < 0) {
+        // Could not open the file
+        error = errno ;
+        return false ;
+    }
+    if (ioctl(kI2CFileDescriptor, I2C_SLAVE, kAdafruit_MCP9808I2CAddress) < 0) {
+        // Could not open the device on the bus
+        error = errno ;
+        return false ;
+    }
+    return true ;
 }
  
+void Adafruit_MCP9808::closeAdafruit_MCP9808()
+{
+    if (kI2CFileDescriptor > 0) {
+        close(kI2CFileDescriptor);
+        // WARNING - This is not quite right, need to check for error first
+        kI2CFileDescriptor = -1 ;
+    }
+}
 /**************************************************************************/
 /*! 
     @brief  Reads the 16-bit temperature register and returns the Centigrade
             temperature as a float.
 */
 /**************************************************************************/
-float Adafruit_MCP9808::readTempC( void )
-{
-  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
-
-  float temp = t & 0x0FFF;
-  temp /=  16.0;
-  if (t & 0x1000) temp -= 256;
-
-  return temp;
+int Adafruit_MCP9808::readAdafruit_MCP9808(int readRegister)
+	int toReturn ;
+    toReturn = i2c_smbus_write_byte(kI2CFileDescriptor, readRegister) ;
+    if (toReturn < 0) {
+        error = errno ;
+        toReturn = -1 ;
+    }
+    toReturn = i2c_smbus_read_byte(kI2CFileDescriptor) ;
+    if (toReturn < 0) {
+        error = errno ;
+        toReturn = -1 ;
+    }
+    return toReturn ;
 }
 
 
@@ -91,21 +118,47 @@ float Adafruit_MCP9808::readTempC( void )
 // 1= shutdown / 0= wake up
 //*************************************************************************
 
-void Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
+int Adafruit_MCP9808::writeAdafruit_MCP9808(int writeRegister, int writeValue)
 {
-    uint16_t conf_shutdown ;
-    uint16_t conf_register = read16(MCP9808_REG_CONFIG);
-    if (sw_ID == 1)
-    {
-       conf_shutdown = conf_register | MCP9808_REG_CONFIG_SHUTDOWN ;
-       write16(MCP9808_REG_CONFIG, conf_shutdown);
+    int toReturn = i2c_smbus_write_byte_data(kI2CFileDescriptor, writeRegister, writeValue);
+    // Wait a little bit to make sure it settles
+    usleep(10000);
+    if (toReturn < 0) {
+        error = errno ;
+        toReturn = -1 ;
     }
-    if (sw_ID == 0)
-    {
-       conf_shutdown = conf_register & ~MCP9808_REG_CONFIG_SHUTDOWN ;
-       write16(MCP9808_REG_CONFIG, conf_shutdown);
-    }
+    return toReturn ;
+
 }
+
+
+int Adafruit_MCP9808::getTemperature()
+{
+    int ioResult ;
+    int msb, lsb ;
+    ioResult = writeAdafruit_MCP9808(kAdafruit_MCP9808CommandControlRegister,Adafruit_MCP9808Measure);
+    if (ioResult < 0) {
+        return ioResult ;
+    }
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateDistanceMSB);
+    if (ioResult < 0) {
+        return ioResult ;
+    } else {
+        msb = ioResult ;
+    }
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateDistanceLSB);
+    if (ioResult < 0) {
+        return ioResult ;
+    } else {
+        lsb = ioResult ;
+    }
+
+    int temperature = (msb << 8) + lsb ;
+
+    return temperature ;
+}
+
+
 
 void Adafruit_MCP9808::shutdown(void)
 {
