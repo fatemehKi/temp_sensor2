@@ -24,7 +24,7 @@
  #include "WProgram.h"
 #endif
 
-#include <Wire.h>
+//#include <Wire.h>
 
 
 #define MCP9808_I2CADDR_DEFAULT        0x1B
