@@ -140,13 +140,13 @@ int Adafruit_MCP9808::getTemperature()
     if (ioResult < 0) {
         return ioResult ;
     }
-    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateDistanceMSB);
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateTemperatureMSB);
     if (ioResult < 0) {
         return ioResult ;
     } else {
         msb = ioResult ;
     }
-    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateDistanceLSB);
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateTemperatureLSB);
     if (ioResult < 0) {
         return ioResult ;
     } else {
@@ -159,7 +159,7 @@ int Adafruit_MCP9808::getTemperature()
 }
 
 
-
+/*
 void Adafruit_MCP9808::shutdown(void)
 {
   shutdown_wake(1);
@@ -172,14 +172,14 @@ void Adafruit_MCP9808::wake(void)
 }
 
 
-
+*/
 /**************************************************************************/
 /*! 
     @brief  Low level 16 bit read and write procedures!
 */
 /**************************************************************************/
-
-void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
+/*
+void Adafruit_MCP9808::write16(uint8err_t reg, uint16_t value) {
     Wire.beginTransmission(_i2caddr);
     Wire.write((uint8_t)reg);
     Wire.write(value >> 8);
@@ -199,4 +199,4 @@ uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
   val <<= 8;
   val |= Wire.read();  
   return val;  
-}
+}*/
