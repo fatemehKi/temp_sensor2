@@ -52,11 +52,11 @@
 //#define kLidarLitePreviousMeasuredDistanceLSB   0x15    // Previous low byte of calculated delay of signal
 
 // External Control Registers
-//#define kLidarLiteHardwareVersion               0x41    // Hardware Version: revisions begin with 0x01
-//#define kLidarLiteSoftwareVersion               0x4f    // Software Version: Revisions begin with 0x01
+#define kLidarLiteHardwareVersion               0x41    // Hardware Version: revisions begin with 0x01
+#define kLidarLiteSoftwareVersion               0x4f    // Software Version: Revisions begin with 0x01
 
 // Register Command
-#define AdafruitMCP9808Measure                       0x04    // Take acquisition & correlation processing with DC correction
+#define kAdafruitMCP9808Measure                       0x04    // Take acquisition & correlation processing with DC correction
 
 class AdafruitMCP9808
 {
@@ -67,7 +67,7 @@ public:
     AdafruitMCP9808();
     ~AdafruitMCP9808() ;
     bool openAdafruitMCP9808() ;                   // Open the I2C bus to the Lidar-Lite
-    void closAdafruitMCP9808();                   // Close the I2C bus to the Lidar-Lite
+    void closeAdafruitMCP9808();                   // Close the I2C bus to the Lidar-Lite
     int writeAdafruitMCP9808(int writeRegister,int writeValue) ;
     int readAdafruitMCP9808(int readRegister) ;
     int getTemperature() ;
