@@ -15,8 +15,8 @@
 */
 /**************************************************************************/
 
-#ifndef _ADAFRUIT_MCP9808_H
-#define _ADAFRUIT_MCP9808_H
+#ifndef ADAFRUIT_MCP9808_H
+#define ADAFRUIT_MCP9808_H
 
 #include <cstddef>
 #include <linux/i2c-dev.h>
