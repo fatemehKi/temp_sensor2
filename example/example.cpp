@@ -16,7 +16,7 @@ products from Adafruit!
 #include <string.h>
 #include <termios.h>
 #include <time.h>
-#include "Adafruit_MCP9808.h"
+#include <Adafruit_MCP9808.h>
 
 int getkey() {
     int character;
@@ -42,15 +42,15 @@ int getkey() {
 }
 
 int main() {
-    Adafruit_MCP9808 *Adafruit_MCP9808 = new Adafruit_MCP9808() ;
+    AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808() ;
    
-  /*int err = lidarLite->openLidarLite();
+  int err =  AdafruitMCP9808->open AdafruitMCP9808();
     if (err < 0){
-        printf("Error: %d", lidarLite->error);
+        printf("Error: %d",  AdafruitMCP9808->error);
     } else {
 
-        int hardwareVersion = lidarLite->getHardwareVersion() ;
-        int softwareVersion = lidarLite->getSoftwareVersion() ;
+        int hardwareVersion = AdafruitMCP9808->getHardwareVersion() ;
+        int softwareVersion = AdafruitMCP9808->getSoftwareVersion() ;
         printf("Hardware Version: %d\n",hardwareVersion) ;
         printf("Software Version: %d\n",softwareVersion) ;
 */
@@ -59,7 +59,7 @@ int main() {
   tempsensor->wake();   // wake up, ready to read!
 
   // Read and print out the temperature, then convert to *F
-  float c = Adafruit_MCP9808 -> readTempC();
+  float c = AdafruitMCP9808 -> getTemperature();
   float f = c * 9.0 / 5.0 + 32;
   
   printf("Temp: %d\n",c) ;
