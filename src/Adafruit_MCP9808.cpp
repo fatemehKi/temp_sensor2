@@ -31,6 +31,9 @@
  #include <Wire.h>
 #endif
 */
+
+
+#include <Wire.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
