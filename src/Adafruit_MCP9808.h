@@ -58,7 +58,7 @@
 // Register Command
 #define AdafruitMCP9808Measure                       0x04    // Take acquisition & correlation processing with DC correction
 
-class LidarLite
+class AdafruitMCP9808
 {
 public:
     unsigned char kI2CBus ;         // I2C bus of the Lidar-Lite
