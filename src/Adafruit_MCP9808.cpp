@@ -176,6 +176,7 @@ int AdafruitMCP9808::getError()
     return error ;
 }
 
+/*
 void AdafruitMCP9808::shutdown(void)
 {
   shutdown_wake(1);
@@ -186,7 +187,7 @@ void AdafruitMCP9808::wake(void)
   shutdown_wake(0);
   delay(250);
 }
-
+*/
 
 
 /**************************************************************************/
