@@ -73,9 +73,11 @@ public:
     int getTemperature() ;
     //int getPreviousDistance() ;
     //int getVelocity() ;
-    //int getHardwareVersion() ;
-    //int getSoftwareVersion() ;
-    //int getError() ;
+    int getHardwareVersion() ;
+    int getSoftwareVersion() ;
+    int getError() ;
+    void AdafruitMCP9808::shutdown(void);
+    void AdafruitMCP9808::wake(void);
 
 };
 
