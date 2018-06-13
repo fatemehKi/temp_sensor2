@@ -60,7 +60,7 @@ int32_t random(int32_t howsmall, int32_t howbig);
 void randomSeed(uint32_t newseed);
 void srandom(unsigned int newseed);
 
-#include "pins_arduino.h"
+//#include "pins_arduino.h"
 
 #endif // __cplusplus
 
