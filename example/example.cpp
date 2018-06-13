@@ -44,7 +44,7 @@ int getkey() {
 int main() {
    AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808() ;
    
-  int err =  AdafruitMCP9808->open AdafruitMCP9808();
+  int err =  AdafruitMCP9808->openAdafruitMCP9808();
     if (err < 0){
         printf("Error: %d",  AdafruitMCP9808->error);
     } else {
@@ -62,7 +62,7 @@ int main() {
   float c = AdafruitMCP9808 -> getTemperature();
   float f = c * 9.0 / 5.0 + 32;
   
-  printf("Temp: %d\n",c) ;
+  printf("Temp: %f\n",c) ;
  // printf("Temp: "); Serial.print(c); Serial.print("*C\t"); 
   //Serial.print(f); Serial.println("*F");
   
