@@ -16,7 +16,7 @@ products from Adafruit!
 #include <string.h>
 #include <termios.h>
 #include <time.h>
-#include "Adafruit_MCP9808.h"
+#include <Adafruit_MCP9808.h>
 
 int getkey() {
     int character;
