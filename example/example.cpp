@@ -56,10 +56,10 @@ int main() {
 */
 
 
-  tempsensor.wake();   // wake up, ready to read!
+  tempsensor->wake();   // wake up, ready to read!
 
   // Read and print out the temperature, then convert to *F
-  float c = tempsensor.readTempC();
+  float c = Adafruit_MCP9808 -> readTempC();
   float f = c * 9.0 / 5.0 + 32;
   
   printf("Temp: %d\n",c) ;
