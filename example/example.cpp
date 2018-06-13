@@ -42,7 +42,7 @@ int getkey() {
 }
 
 int main() {
-    AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808() ;
+   AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808() ;
    
   int err =  AdafruitMCP9808->open AdafruitMCP9808();
     if (err < 0){
@@ -70,4 +70,5 @@ int main() {
   //tempsensor.shutdown(); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere
   
   delay(1000);
+        return 0;
 }
