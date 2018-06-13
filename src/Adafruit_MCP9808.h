@@ -37,10 +37,10 @@
 //#include <Wire.h>
 
 
-#define kAdafruit_MCP980I2CAddress              0x1B
+#define kAdafruit_MCP9808I2CAddress              0x1B
 
 // Internal Control Registers 
-#define kAdafruit_MCP980CommandControlRegister    0x00    // Command Control Register
+#define kAdafruit_MCP9808CommandControlRegister    0x00    // Command Control Register
 //#define kLidarLiteVelocityMeasurementOutput     0x09    // Velocity [Read Only]: in .1 meters/sec (8 bit signed value)
 // High byte set means read two bytes
 #define kAdafruit_MCP9808CalculateTemperatureMSB  0x8f    // Calculated distance in cm (difference between signal and reference delay)
