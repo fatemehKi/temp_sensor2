@@ -53,10 +53,10 @@ int main() {
         int softwareVersion = AdafruitMCP9808->getSoftwareVersion() ;
         printf("Hardware Version: %d\n",hardwareVersion) ;
         printf("Software Version: %d\n",softwareVersion) ;
-*/
 
 
-  tempsensor->wake();   // wake up, ready to read!
+
+ // tempsensor->wake();   // wake up, ready to read!
 
   // Read and print out the temperature, then convert to *F
   float c = AdafruitMCP9808 -> getTemperature();
