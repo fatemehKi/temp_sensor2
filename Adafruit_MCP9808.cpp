@@ -28,6 +28,12 @@
  #include <Wire.h>
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <termios.h>
+#include <time.h>
+
 #include "Adafruit_MCP9808.h"
 
 /**************************************************************************/
