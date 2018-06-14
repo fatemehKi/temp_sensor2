@@ -41,7 +41,7 @@
 #include <time.h>
 */
 	
-#include "AdafruitMCP9808.h"
+#include "Adafruit_MCP9808.h"
 
 
 
@@ -50,16 +50,16 @@
     @brief  Instantiates a new MCP9808 class
 */
 /**************************************************************************/
-AdafruitMCP9808::AdafruitMCP9808() 
+Adafruit_MCP9808::Adafruit_MCP9808() 
 {
 	kI2CBus = 1 ;           // Default I2C bus for Lidar-Lite on Jetson TK1
 	error = 0 ;
 }
 
 
-AdafruitMCP9808::~AdafruitMCP9808() 
+Adafruit_MCP9808::~Adafruit_MCP9808() 
 {
-	closeAdafruitMCP9808();
+	closeAdafruit_MCP9808();
 }
 
 /**************************************************************************/
@@ -67,7 +67,7 @@ AdafruitMCP9808::~AdafruitMCP9808()
     @brief  Setups the HW
 */
 /**************************************************************************/
-bool AdafruitMCP9808::openAdafruitMCP9808() {
+bool Adafruit_MCP9808::openAdafruit_MCP9808() {
       char fileNameBuffer[32];
     printf(fileNameBuffer,"/dev/i2c-%d", kI2CBus);
     kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
@@ -76,7 +76,7 @@ bool AdafruitMCP9808::openAdafruitMCP9808() {
         error = errno ;
         return false ;
     }
-    if (ioctl(kI2CFileDescriptor, I2C_SLAVE, kAdafruitMCP9808I2CAddress) < 0) {
+    if (ioctl(kI2CFileDescriptor, I2C_SLAVE, kAdafruit_MCP9808I2CAddress) < 0) {
         // Could not open the device on the bus
         error = errno ;
         return false ;
@@ -84,7 +84,7 @@ bool AdafruitMCP9808::openAdafruitMCP9808() {
     return true ;
 }
  
-void AdafruitMCP9808::closeAdafruitMCP9808()
+void Adafruit_MCP9808::closeAdafruit_MCP9808()
 {
     if (kI2CFileDescriptor > 0) {
         close(kI2CFileDescriptor);
@@ -98,7 +98,7 @@ void AdafruitMCP9808::closeAdafruitMCP9808()
             temperature as a float.
 */
 /**************************************************************************/
-int AdafruitMCP9808::readAdafruitMCP9808(int readRegister)
+int Adafruit_MCP9808::readAdafruit_MCP9808(int readRegister)
 {
 	int toReturn=0;
     toReturn = i2c_smbus_write_byte(kI2CFileDescriptor, readRegister);
@@ -121,7 +121,7 @@ int AdafruitMCP9808::readAdafruitMCP9808(int readRegister)
 // 1= shutdown / 0= wake up
 //*************************************************************************
 
-int AdafruitMCP9808::writeAdafruitMCP9808(int writeRegister, int writeValue)
+int Adafruit_MCP9808::writeAdafruit_MCP9808(int writeRegister, int writeValue)
 {
     int toReturn = i2c_smbus_write_byte_data(kI2CFileDescriptor, writeRegister, writeValue);
     // Wait a little bit to make sure it settles
@@ -135,21 +135,21 @@ int AdafruitMCP9808::writeAdafruitMCP9808(int writeRegister, int writeValue)
 }
 
 
-int AdafruitMCP9808::getTemperature()
+int Adafruit_MCP9808::getTemperature()
 {
     int ioResult ;
     int msb, lsb ;
-    ioResult = writeAdafruitMCP9808(kAdafruitMCP9808CommandControlRegister,kAdafruitMCP9808Measure);
+    ioResult = writeAdafruit_MCP9808(kAdafruit_MCP9808CommandControlRegister,kAdafruit_MCP9808Measure);
     if (ioResult < 0) {
         return ioResult ;
     }
-    ioResult = readAdafruitMCP9808(kAdafruitMCP9808CalculateTemperatureMSB);
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateTemperatureMSB);
     if (ioResult < 0) {
         return ioResult ;
     } else {
         msb = ioResult ;
     }
-    ioResult = readAdafruitMCP9808(kAdafruitMCP9808CalculateTemperatureLSB);
+    ioResult = readAdafruitMCP9808(kAdafruit_MCP9808CalculateTemperatureLSB);
     if (ioResult < 0) {
         return ioResult ;
     } else {
@@ -162,19 +162,19 @@ int AdafruitMCP9808::getTemperature()
 }
 
 
-int AdafruitMCP9808::getHardwareVersion()
+int Adafruit_MCP9808::getHardwareVersion()
 {
-    return readAdafruitMCP9808(kAdafruitMCP9808HardwareVersion) ;
+    return readAdafruit_MCP9808(kAdafruit_MCP9808HardwareVersion) ;
 }
 
 // Return the Lidar-Lite software version
-int AdafruitMCP9808::getSoftwareVersion() {
-    return readAdafruitMCP9808(kAdafruitMCP9808SoftwareVersion) ;
+int Adafruit_MCP9808::getSoftwareVersion() {
+    return readAdafruit_MCP9808(kAdafruit_MCP9808SoftwareVersion) ;
 }
 
 
 // Return the last i/o error
-int AdafruitMCP9808::getError()
+int Adafruit_MCP9808::getError()
 {
     return error ;
 }
