@@ -37,7 +37,7 @@
 //#include <Wire.h>
 
 
-#define kAdafruitMCP9808I2CAddress              0x1B
+#define kAdafruitMCP9808I2CAddress              0x1b
 
 // Internal Control Registers 
 #define kAdafruitMCP9808CommandControlRegister    0x00    // Command Control Register
