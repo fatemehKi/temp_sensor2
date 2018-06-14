@@ -43,6 +43,8 @@
 	
 #include "AdafruitMCP9808.h"
 
+
+
 /**************************************************************************/
 /*! 
     @brief  Instantiates a new MCP9808 class
@@ -97,8 +99,9 @@ void AdafruitMCP9808::closeAdafruitMCP9808()
 */
 /**************************************************************************/
 int AdafruitMCP9808::readAdafruitMCP9808(int readRegister)
-	int toReturn ;
-    toReturn = i2c_smbus_write_byte(kI2CFileDescriptor, readRegister) ;
+{
+	int toReturn=0;
+    toReturn = i2c_smbus_write_byte(kI2CFileDescriptor, readRegister);
     if (toReturn < 0) {
         error = errno ;
         toReturn = -1 ;
@@ -136,7 +139,7 @@ int AdafruitMCP9808::getTemperature()
 {
     int ioResult ;
     int msb, lsb ;
-    ioResult = writeAdafruitMCP9808(kAdafruit_MCP9808CommandControlRegister,AdafruitMCP9808Measure);
+    ioResult = writeAdafruitMCP9808(kAdafruitMCP9808CommandControlRegister,kAdafruitMCP9808Measure);
     if (ioResult < 0) {
         return ioResult ;
     }
@@ -161,12 +164,12 @@ int AdafruitMCP9808::getTemperature()
 
 int AdafruitMCP9808::getHardwareVersion()
 {
-    return readLidarLite(kLidarLiteHardwareVersion) ;
+    return readAdafruitMCP9808(kAdafruitMCP9808HardwareVersion) ;
 }
 
 // Return the Lidar-Lite software version
 int AdafruitMCP9808::getSoftwareVersion() {
-    return readLidarLite(kLidarLiteSoftwareVersion) ;
+    return readAdafruitMCP9808(kAdafruitMCP9808SoftwareVersion) ;
 }
 
 
@@ -176,44 +179,4 @@ int AdafruitMCP9808::getError()
     return error ;
 }
 
-/*
-void AdafruitMCP9808::shutdown(void)
-{
-  shutdown_wake(1);
-}
 
-void AdafruitMCP9808::wake(void)
-{
-  shutdown_wake(0);
-  delay(250);
-}
-*/
-
-
-/**************************************************************************/
-/*! 
-    @brief  Low level 16 bit read and write procedures!
-*/
-/**************************************************************************/
-/*
-void Adafruit_MCP9808::write16(uint8err_t reg, uint16_t value) {
-    Wire.beginTransmission(_i2caddr);
-    Wire.write((uint8_t)reg);
-    Wire.write(value >> 8);
-    Wire.write(value & 0xFF);
-    Wire.endTransmission();
-}
-
-uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
-  uint16_t val;
-
-  Wire.beginTransmission(_i2caddr);
-  Wire.write((uint8_t)reg);
-  Wire.endTransmission();
-  
-  Wire.requestFrom((uint8_t)_i2caddr, (uint8_t)2);
-  val = Wire.read();
-  val <<= 8;
-  val |= Wire.read();  
-  return val;  
-}*/
