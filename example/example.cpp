@@ -16,7 +16,7 @@ products from Adafruit!
 #include <string.h>
 #include <termios.h>
 #include <time.h>
-#include <AdafruitMCP9808.h>
+#include "AdafruitMCP9808.h"
 
 int getkey() {
     int character;
@@ -42,20 +42,20 @@ int getkey() {
 }
 
 int main() {
-   AdafruitMCP9808 *AdafruitMCP9808 = new AdafruitMCP9808();
+   AdafruitMCP9808 *adafruitMCP9808 = new AdafruitMCP9808();
    
-  int err =  AdafruitMCP9808->openAdafruitMCP9808();
+  int err =  adafruitMCP9808->openAdafruitMCP9808();
     if (err < 0){
-        printf("Error: %d",  AdafruitMCP9808->error);
+        printf("Error: %d",  adafruitMCP9808->error);
     } else {
 
-        int hardwareVersion = AdafruitMCP9808->getHardwareVersion() ;
-        int softwareVersion = AdafruitMCP9808->getSoftwareVersion() ;
+        int hardwareVersion = adafruitMCP9808->getHardwareVersion() ;
+        int softwareVersion = adafruitMCP9808->getSoftwareVersion() ;
         printf("Hardware Version: %d\n",hardwareVersion) ;
         printf("Software Version: %d\n",softwareVersion) ;
 
-    while(lidarLite->error >= 0 && getkey() != 27){
-         float c = AdafruitMCP9808 -> getTemperature();
+    while(adafruitMCP9808->error >= 0 && getkey() != 27){
+         float c = adafruitMCP9808 -> getTemperature();
          float f = c * 9.0 / 5.0 + 32;
          printf("Temp: %f\n",c) ;
     }
@@ -75,6 +75,6 @@ int main() {
   
   //delay(1000);
        
-        AdafruitMCP9808->closeAdafruitMCP9808();
+        adafruitMCP9808->closeAdafruitMCP9808();
         return 0;
 }
