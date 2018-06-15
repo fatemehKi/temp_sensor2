@@ -41,7 +41,7 @@
 #include <time.h>
 */
 	
-#include "Adafruit_MCP9808.h"
+#include "AdafruitMCP9808.h"
 
 
 
@@ -149,16 +149,16 @@ int Adafruit_MCP9808::getTemperature()
     } else {
         msb = ioResult ;
     }
-    ioResult = readAdafruitMCP9808(kAdafruit_MCP9808CalculateTemperatureLSB);
+    ioResult = readAdafruit_MCP9808(kAdafruit_MCP9808CalculateTemperatureLSB);
     if (ioResult < 0) {
         return ioResult ;
     } else {
         lsb = ioResult ;
     }
 
-    int temperature = (msb << 8) + lsb ;
+    int temperature = (msb << 8) + lsb;
 
-    return temperature ;
+    return temperature;
 }
 
 
