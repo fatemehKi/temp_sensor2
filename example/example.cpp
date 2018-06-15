@@ -42,20 +42,20 @@ int getkey() {
 }
 
 int main() {
-   AdafruitMCP9808 *adafruitMCP9808 = new AdafruitMCP9808();
+   Adafruit_MCP9808 *adafruit_MCP9808 = new Adafruit_MCP9808();
    
-  int err =  adafruitMCP9808->openAdafruitMCP9808();
+  int err =  adafruit_MCP9808->openAdafruit_MCP9808();
     if (err < 0){
-        printf("Error: %d",  adafruitMCP9808->error);
+        printf("Error: %d",  adafruit_MCP9808->error);
     } else {
 
-        int hardwareVersion = adafruitMCP9808->getHardwareVersion() ;
-        int softwareVersion = adafruitMCP9808->getSoftwareVersion() ;
+        int hardwareVersion = adafruit_MCP9808->getHardwareVersion() ;
+        int softwareVersion = adafruit_MCP9808->getSoftwareVersion() ;
         printf("Hardware Version: %d\n",hardwareVersion) ;
         printf("Software Version: %d\n",softwareVersion) ;
 
-    while(adafruitMCP9808->error >= 0 && getkey() != 27){
-         float c = adafruitMCP9808 -> getTemperature();
+    while(adafruit_MCP9808->error >= 0 && getkey() != 27){
+         float c = adafruit_MCP9808 -> getTemperature();
          float f = c * 9.0 / 5.0 + 32;
          printf("Temp: %f\n",c) ;
     }
@@ -75,6 +75,6 @@ int main() {
   
   //delay(1000);
        
-        adafruitMCP9808->closeAdafruitMCP9808();
+        adafruit_MCP9808->closeAdafruit_MCP9808();
         return 0;
 }
