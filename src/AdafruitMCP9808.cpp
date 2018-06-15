@@ -51,7 +51,7 @@
 /**************************************************************************/
 Adafruit_MCP9808::Adafruit_MCP9808() 
 {
-	kI2CBus = 1 ;           // Default I2C bus for Lidar-Lite on Jetson TK1
+	kI2CBus = 2 ;           // Default I2C bus for Lidar-Lite on Jetson TK1
 	error = 0 ;
 }
 
