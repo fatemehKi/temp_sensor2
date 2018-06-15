@@ -69,15 +69,19 @@ Adafruit_MCP9808::~Adafruit_MCP9808()
 /**************************************************************************/
 bool Adafruit_MCP9808::openAdafruit_MCP9808() {
       char fileNameBuffer[32];
+      
     printf(fileNameBuffer,"/dev/i2c-%d", kI2CBus);
-    kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
+    //kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
+    kI2CFileDescriptor = open("/dev/i2c-%d", O_RDWR);
     if (kI2CFileDescriptor < 0) {
+    	printf ("couldn't open");
         // Could not open the file
         error = errno ;
         return false ;
     }
     if (ioctl(kI2CFileDescriptor, I2C_SLAVE, kAdafruit_MCP9808I2CAddress) < 0) {
         // Could not open the device on the bus
+    	printf("couldn't open2");
         error = errno ;
         return false ;
     }
