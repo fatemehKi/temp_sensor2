@@ -20,6 +20,7 @@
 
 #include <cstddef>
 #include <linux/i2c-dev.h>
+//#include <i2c/smbus.h>
 #include <sys/ioctl.h>
 #include <cstdlib>
 #include <cstdio>
@@ -67,7 +68,7 @@ public:
     int error ;
     Adafruit_MCP9808();
     ~Adafruit_MCP9808();
-    bool openAdafruit_MCP9808() ;                   // Open the I2C bus to the Lidar-Lite
+    bool openAdafruit_MCP9808();                   // Open the I2C bus to the Lidar-Lite
     void closeAdafruit_MCP9808();                   // Close the I2C bus to the Lidar-Lite
     int writeAdafruit_MCP9808(int writeRegister,int writeValue) ;
     int readAdafruit_MCP9808(int readRegister) ;
