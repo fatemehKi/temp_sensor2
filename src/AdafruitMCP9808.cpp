@@ -44,7 +44,6 @@
 #include "AdafruitMCP9808.h"
 
 
-
 /**************************************************************************/
 /*! 
     @brief  Instantiates a new MCP9808 class
@@ -71,8 +70,8 @@ bool Adafruit_MCP9808::openAdafruit_MCP9808() {
       char fileNameBuffer[32];
       
     printf(fileNameBuffer,"/dev/i2c-%d", kI2CBus);
-    //kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
-    kI2CFileDescriptor = open("/dev/i2c-%d", O_RDWR);
+    kI2CFileDescriptor = open(fileNameBuffer, O_RDWR);
+   // kI2CFileDescriptor = open("/dev/i2c-%d", O_RDWR);
     if (kI2CFileDescriptor < 0) {
     	printf ("couldn't open");
         // Could not open the file
