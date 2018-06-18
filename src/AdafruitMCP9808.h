@@ -26,7 +26,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-#include "i2c/smbus.h"
+//#include "i2c/smbus.h"
 /*
 #if ARDUINO >= 100
  #include "Arduino.h"
