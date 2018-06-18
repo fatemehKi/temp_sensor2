@@ -20,14 +20,13 @@
 
 #include <cstddef>
 #include <linux/i2c-dev.h>
-#include <i2c/smbus.h>
 #include <sys/ioctl.h>
 #include <cstdlib>
 #include <cstdio>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-
+#include "i2c/smbus.h"
 /*
 #if ARDUINO >= 100
  #include "Arduino.h"
