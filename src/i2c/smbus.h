@@ -23,7 +23,7 @@
 #define _LINUX_I2C_SMBUS_H
 
 #include <linux/i2c.h>
-#include <linux/spinlock.h>
+#include <src/linux/spinlock.h >
 #include <linux/workqueue.h>
 
 
